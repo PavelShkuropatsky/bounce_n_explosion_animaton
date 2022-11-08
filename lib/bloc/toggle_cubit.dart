@@ -4,13 +4,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'toggle_state.dart';
 
 class ToggleCubit extends Cubit<ToggleState> {
-  ToggleCubit() : super(ToggleOff());
+  ToggleCubit() : super(FinishToggleOff());
 
-  toggle() {
+  startToggle() {
     if (state is ToggleOn) {
-      emit(ToggleOff());
+      emit(StartToggleOff());
     } else {
-      emit(ToggleOn());
+      emit(StartToggleOn());
+    }
+  }
+
+  finishToggle() {
+    if (state is StartToggleOn) {
+      emit(FinishToggleOn());
+    }
+    else if (state is StartToggleOff) {
+      emit(FinishToggleOff());
     }
   }
 
